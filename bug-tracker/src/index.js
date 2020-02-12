@@ -5,10 +5,10 @@ import { App } from './App/App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.Fragment>
+  <>
     <Normalize />
     <App />
-  </React.Fragment>,
+  </>,
   document.getElementById('root')
 );
 
