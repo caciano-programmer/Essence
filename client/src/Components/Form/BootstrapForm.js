@@ -18,36 +18,44 @@ export const BootstrapForm = props => {
             <Form.Label>Name:</Form.Label>
             <Form.Control
               type='text'
+              min='2'
+              max='15'
               placeholder='Enter desired profile name'
               name='name'
               value={props.values.name}
               onChange={props.handleChange}
             />
-            <Form.Text className='text-muted'>Name error</Form.Text>
+            {props.errors.name && (
+              <Form.Text className='text-muted'>{props.errors.name}</Form.Text>
+            )}
           </Form.Group>
         )}
         <Form.Group>
           <Form.Label>Email:</Form.Label>
           <Form.Control
-            type='email'
+            type='text'
             placeholder='Enter email'
             name='email'
             value={props.values.email}
             onChange={props.handleChange}
           />
-          <Form.Text className='text-muted'>Email error</Form.Text>
+          {props.errors.email && (
+            <Form.Text className='text-muted'>{props.errors.email}</Form.Text>
+          )}
         </Form.Group>
         {!props.userExists && (
           <Form.Group>
             <Form.Label>Confirm Email:</Form.Label>
             <Form.Control
-              type='email'
+              type='text'
               placeholder='Confirm your email'
               name='confirm'
               value={props.values.confirm}
               onChange={props.handleChange}
             />
-            <Form.Text className='text-muted'>Email error</Form.Text>
+            {props.errors.confirm && (
+              <Form.Text className='text-muted'>{props.errors.confirm}</Form.Text>
+            )}
           </Form.Group>
         )}
         <Form.Group>
@@ -59,7 +67,7 @@ export const BootstrapForm = props => {
             value={props.values.password}
             onChange={props.handleChange}
           />
-          <Form.Text className='text-muted'>Password error</Form.Text>
+          {props.errors.password && <Form.Text className='text-muted'>{props.errors.password}</Form.Text>}
           {props.userExists && (
             <Form.Text className='text-muted'>
               <u>Forgot Password?</u>
