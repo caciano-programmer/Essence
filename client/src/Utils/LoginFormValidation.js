@@ -1,6 +1,6 @@
 import { object, string, date, ref } from 'yup';
-
-const passwordRegex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/;
+//FIXME split regex into separate objects and each with its own warning
+const passwordRegex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(^((?!:).)*$)/;
 const passwordWarning = 'Must include numbers and upper/lower case characters';
 
 export const signupSchema = object().shape({
