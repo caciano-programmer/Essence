@@ -9,7 +9,7 @@ ReactDOM.render(
     <Normalize />
     <App />
   </>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 serviceWorker.unregister();

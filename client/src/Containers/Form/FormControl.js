@@ -34,7 +34,10 @@ export const FormControl = () => {
         validateOnChange={false}
         validateOnBlur={false}
       >
-        {props => <Form {...props} userExists={userExists} existence={existence} />}
+        {props => {
+          // eslint-disable-next-line react/prop-types
+          return <Form {...props} userExists={userExists} existence={existence} />;
+        }}
       </Formik>
     </>
   );

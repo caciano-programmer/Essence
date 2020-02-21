@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const WebAddress = 'localhost:3001';
+const WebAddress = 'localhost:4000';
 const header = {};
 
 export const login = credentials =>
@@ -8,7 +8,7 @@ export const login = credentials =>
     method: 'post',
     url: `${WebAddress}/login`,
     headers: header,
-    data: credentials
+    data: credentials,
   });
 
 export const signup = credentials =>
@@ -16,7 +16,7 @@ export const signup = credentials =>
     method: 'post',
     url: `${WebAddress}/signup`,
     headers: header,
-    data: credentials
+    data: credentials,
   });
 
 export const logout = () => {};

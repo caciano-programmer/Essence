@@ -1,5 +1,5 @@
 import { object, string, date, ref } from 'yup';
-//FIXME split regex into separate objects and each with its own warning
+// FIXME split regex into separate objects and each with its own warning
 const passwordRegex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(^((?!:).)*$)/;
 const passwordWarning = 'Must include numbers and upper/lower case characters';
 
@@ -19,7 +19,7 @@ export const signupSchema = object().shape({
     .min(7)
     .max(15)
     .required(),
-  createdOn: date().default(() => new Date())
+  createdOn: date().default(() => new Date()),
 });
 
 export const loginSchema = object().shape({
@@ -30,5 +30,5 @@ export const loginSchema = object().shape({
     .matches(passwordRegex, passwordWarning)
     .required()
     .min(7)
-    .max(15)
+    .max(15),
 });

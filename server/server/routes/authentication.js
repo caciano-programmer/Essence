@@ -3,18 +3,16 @@ import { hash, verifyHash } from '../auth/hash';
 
 const router = express.Router();
 const headers = {};
-//TODO read links for headers: shorturl.at/FITZ0 & shorturl.at/ftABK and look into CSP header configs and cache control
-//TODO make custom error handling
+
+// TODO read links for headers: shorturl.at/FITZ0 & shorturl.at/ftABK and look into CSP header configs and cache control
+// TODO make custom error handling
 router.post(
   '/login',
   errorWrapper(async (req, res) => {
-    const [username, password] = await decode(req.get('Authorization'));
-    const result = await hash(username, password);
-    console.log(result);
-    const compared = await verifyHash(username, password);
-    console.log(compared);
+    const [email, password] = await decode(req.get('Authorization'));
+    await hash(email, password);
     res.status(200).send('OK');
-  })
+  }),
 );
 
 router.post('/signup', (req, res) => {
