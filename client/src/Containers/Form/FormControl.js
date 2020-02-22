@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import { BootstrapForm as Form } from '../../Components/Form/BootstrapForm';
+import { BootstrapForm } from '../../Components/Form/BootstrapForm';
 import { loginSchema, signupSchema } from '../../Utils/LoginFormValidation';
 import { Oauth } from '../../Components/Form/Oauth';
 import { login, signup } from '../../Api/Authentication';
@@ -34,10 +34,17 @@ export const FormControl = () => {
         validateOnChange={false}
         validateOnBlur={false}
       >
-        {props => {
-          // eslint-disable-next-line react/prop-types
-          return <Form {...props} userExists={userExists} existence={existence} />;
-        }}
+        {({ handleChange, values, errors, handleSubmit, handleReset }) => (
+          <BootstrapForm
+            userExists={userExists}
+            existence={existence}
+            values={values}
+            errors={errors}
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            handleReset={handleReset}
+          />
+        )}
       </Formik>
     </>
   );
