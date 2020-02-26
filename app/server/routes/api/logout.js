@@ -1,5 +1,5 @@
 import express from 'express';
-import { errorWrapper } from './../errorWrapper';
+import { errorWrapper } from '../errorWrapper';
 
 const router = express.Router();
 

@@ -52,6 +52,7 @@ export function register(config) {
   }
 }
 
+/* eslint-disable no-param-reassign */
 function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)

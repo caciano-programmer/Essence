@@ -2,7 +2,7 @@ import { object, string, date, ref } from 'yup';
 
 const regex = { number: /(?=.*[0-9])/, letter: /(?=.*[a-z])/, capitalize: /(?=.*[A-Z])/, colon: /(^((?!:).)*$)/ };
 
-export const signupSchema = object().shape({
+const signupSchema = object().shape({
   name: string()
     .min(2)
     .max(15)
@@ -24,7 +24,7 @@ export const signupSchema = object().shape({
   createdOn: date().default(() => new Date()),
 });
 
-export const loginSchema = object().shape({
+const loginSchema = object().shape({
   email: string()
     .email()
     .required(),
@@ -37,3 +37,7 @@ export const loginSchema = object().shape({
     .min(7)
     .max(15),
 });
+
+export const validateLogin = loginObj => loginSchema.validate(loginObj);
+
+export const validateSignup = signupObj => signupSchema.validate(signupObj);

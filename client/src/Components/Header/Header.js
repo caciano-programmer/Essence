@@ -11,8 +11,8 @@ const StyledNavbar = styled(Navbar)`
 `;
 
 export const Header = () => (
-  <StyledNavbar bg='dark' variant='dark'>
-    <Navbar.Brand href='home'>{AppName}</Navbar.Brand>
+  <StyledNavbar bg="dark" variant="dark">
+    <Navbar.Brand href="home">{AppName}</Navbar.Brand>
     <Nav>
       <Nav.Link>User</Nav.Link>
       <Nav.Link>Menu</Nav.Link>
