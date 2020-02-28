@@ -4,7 +4,7 @@ const config = {
   client: 'mysql2',
   connection: {
     host: process.env.HOST || '127.0.0.1',
-    user: 'root',
+    user: process.env.USERNAME || 'root',
     password: process.env.PASSWORD || 'password',
     database: 'Essence',
   },
