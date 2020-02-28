@@ -2,6 +2,9 @@
   "name": "app",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=13.9.0"
+  },
   "jest": {
     "verbose": true,
     "testEnvironment": "node",
@@ -35,30 +38,21 @@
       "*.spec.js"
     ]
   },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "esmodules": true
-          }
-        }
-      ]
-    ]
-  },
   "dependencies": {
     "bcrypt": "^4.0.0",
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
     "express": "^4.17.1",
+    "knex": "^0.20.10",
     "morgan": "^1.9.1",
+    "mysql2": "^2.1.0",
     "passport": "^0.4.1",
     "yup": "^0.28.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
     "cross-env": "^7.0.0",
     "eslint": "^6.8.0",
@@ -66,6 +60,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^23.8.0",
+    "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",

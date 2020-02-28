@@ -1,0 +1,7 @@
+CREATE DATABASE Essence;
+CREATE TABLE users (
+    email CHAR(255) PRIMARY KEY,
+    name CHAR(30) NOT NULL,
+    password CHAR(76) NOT NULL,
+    createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

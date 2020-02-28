@@ -1,13 +1,21 @@
-import { object, string, date, ref } from 'yup';
+import { object, string, ref } from 'yup';
 
-const regex = { number: /(?=.*[0-9])/, letter: /(?=.*[a-z])/, capitalize: /(?=.*[A-Z])/, colon: /(^((?!:).)*$)/ };
+const regex = {
+  number: /(?=.*[0-9])/,
+  letter: /(?=.*[a-z])/,
+  capitalize: /(?=.*[A-Z])/,
+  colon: /(^((?!:).)*$)/,
+  spaces: /^\S*$/,
+};
 
 export const signupSchema = object().shape({
   name: string()
-    .min(2)
-    .max(15)
+    .min(1)
+    .max(30)
+    .matches(regex.spaces, 'Name must not contain any spaces')
     .required(),
   email: string()
+    .max(255)
     .email()
     .required(),
   confirm: string()
@@ -19,13 +27,13 @@ export const signupSchema = object().shape({
     .matches(regex.capitalize, 'Password must contain upper case letters')
     .matches(regex.number, 'Password must contain numbers')
     .min(7)
-    .max(15)
+    .max(76)
     .required(),
-  createdOn: date().default(() => new Date()),
 });
 
 export const loginSchema = object().shape({
   email: string()
+    .max(255)
     .email()
     .required(),
   password: string()
@@ -35,5 +43,5 @@ export const loginSchema = object().shape({
     .matches(regex.number, 'Password must contain numbers')
     .required()
     .min(7)
-    .max(15),
+    .max(76),
 });

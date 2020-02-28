@@ -23,13 +23,21 @@ const BootstrapForm = ({ userExists, existence, handleSubmit, handleChange, hand
             name="name"
             value={values.name}
             onChange={handleChange}
+            maxLength={30}
           />
           {errors.name && <Form.Text className="text-muted">{errors.name}</Form.Text>}
         </Form.Group>
       )}
       <Form.Group>
         <Form.Label>Email:</Form.Label>
-        <Form.Control type="text" placeholder="Enter email" name="email" value={values.email} onChange={handleChange} />
+        <Form.Control
+          type="text"
+          placeholder="Enter email"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          maxLength={255}
+        />
         {errors.email && <Form.Text className="text-muted">{errors.email}</Form.Text>}
       </Form.Group>
       {!userExists && (
@@ -41,6 +49,7 @@ const BootstrapForm = ({ userExists, existence, handleSubmit, handleChange, hand
             name="confirm"
             value={values.confirm}
             onChange={handleChange}
+            maxLength={255}
           />
           {errors.confirm && <Form.Text className="text-muted">{errors.confirm}</Form.Text>}
         </Form.Group>
@@ -53,6 +62,7 @@ const BootstrapForm = ({ userExists, existence, handleSubmit, handleChange, hand
           name="password"
           value={values.password}
           onChange={handleChange}
+          maxLength={40}
         />
         {errors.password && <Form.Text className="text-muted">{errors.password}</Form.Text>}
         {userExists && (

@@ -1,8 +1,12 @@
 import debugLib from 'debug';
 import http from 'http';
+import { initDB } from '../db/dbConfig';
 import app from '../app/app';
 
-/* eslint-disable no-restricted-globals, no-console */
+/* eslint-disable no-restricted-globals, no-unreachable, no-console */
+
+// initialize database
+initDB();
 
 const debug = debugLib('app:server');
 
@@ -14,7 +18,6 @@ const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
 function normalizePort(val) {
   const transformedPort = parseInt(val, 10);
   if (isNaN(port)) return val;
