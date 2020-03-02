@@ -11,6 +11,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../../client/build/')));
 app.use(routes);
+app.get('/*', (req, res) => {
+  res.redirect('/');
+});
 app.use((err, req, res, next) => {
   res.status(500).send({ Error: err.message });
 });
