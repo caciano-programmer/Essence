@@ -6,6 +6,8 @@ const router = express.Router();
 router.get(
   '/logout',
   errorWrapper(async (req, res) => {
+    res.clearCookie('csrfToken');
+    res.clearCookie('jwt');
     res.status(200).send('OK');
   }),
 );
