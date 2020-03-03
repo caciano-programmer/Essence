@@ -3,7 +3,7 @@ import { hash, passwordsMatch } from '../auth/hash';
 
 export const createUser = async ({ name, email, password }) => {
   const hashedPassword = await hash(password);
-  return db()('users')
+  return db()('Users')
     .insert({ email, name, password: hashedPassword })
     .catch(() => {
       throw new Error('Email already exist');
@@ -13,9 +13,16 @@ export const createUser = async ({ name, email, password }) => {
 export const authenticateUser = async (email, password) => {
   const [storedPassword] = await db()
     .select('password')
-    .from('users')
+    .from('Users')
     .where({ email });
   if (storedPassword == null) throw new Error('Email does not exist, plase check spelling');
   const result = await passwordsMatch(password, storedPassword.password);
   if (!result) throw new Error('Password is incorrect, please try again');
 };
+
+export const checkGoogleUserExists = email =>
+  db()('Google_Users')
+    .where({ email })
+    .select('email');
+
+export const createGoogleUser = ({ name, email }) => db()('Google_Users').insert({ name, email });
