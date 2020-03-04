@@ -1,5 +1,5 @@
 import { OAuth2Client } from 'google-auth-library';
-import { oauthSecretGoogleConfig } from '../../../config/oauthGoogleConfig';
+import { oauthSecretGoogleConfig } from './oauthGoogleConfig';
 
 // secret config data that contains google secret key and client id, set up with google api console
 const config = oauthSecretGoogleConfig;
