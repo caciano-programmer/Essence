@@ -26,3 +26,10 @@ export const checkGoogleUserExists = email =>
     .select('email');
 
 export const createGoogleUser = ({ name, email }) => db()('Google_Users').insert({ name, email });
+
+export const checkGithubUserExists = email =>
+  db()('Github_Users')
+    .where({ email })
+    .select('email');
+
+export const createGithubUser = ({ name, email }) => db()('Github_Users').insert({ name, email });

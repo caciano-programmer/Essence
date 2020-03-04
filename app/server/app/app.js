@@ -2,10 +2,15 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import helmet from 'helmet';
 import routes from '../routes/routes';
 
 const app = express();
-
+/* 
+  TODO in future make sure when a new account is create in either basic or oauth, 
+  it redirects to update profile page instead of home page
+*/
+app.use(helmet());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
