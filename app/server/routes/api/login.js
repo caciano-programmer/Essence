@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { errorWrapper } from '../errorWrapper';
 import { decode } from '../../auth/decodeBase64';
 import { validateLogin } from '../../auth/validate';
-import { authenticateUser } from '../../db/queries';
+import { authenticateUser } from '../../db/queries/auth/account';
 import { addCsrfCookie, addJwtCookie } from '../cookies';
 
 const router = express.Router();

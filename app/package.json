@@ -10,7 +10,9 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "/dist-server/"
+      "/dist-server/",
+      "/server/",
+      "/.vsocde/"
     ]
   },
   "scripts": {

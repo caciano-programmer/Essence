@@ -2,7 +2,7 @@ import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { errorWrapper } from '../../errorWrapper';
 import { oauthClient, authorizeUrl, apiUrl } from './googleInit';
-import { checkGoogleUserExists, createGoogleUser } from '../../../db/queries';
+import { checkGoogleUserExists, createGoogleUser } from '../../../db/queries/auth/google';
 import { addCsrfCookie, addJwtCookie } from '../../cookies';
 
 const router = express.Router();

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { errorWrapper } from '../../errorWrapper';
 import { githubConfig as config } from './oauthGithubConfig';
 import { addCsrfCookie, addJwtCookie } from '../../cookies';
-import { checkGithubUserExists, createGithubUser } from '../../../db/queries';
+import { checkGithubUserExists, createGithubUser } from '../../../db/queries/auth/github';
 
 /* eslint-disable camelcase */
 

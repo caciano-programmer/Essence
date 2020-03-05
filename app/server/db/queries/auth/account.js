@@ -1,5 +1,5 @@
-import { initDB as db } from './dbConfig';
-import { hash, passwordsMatch } from '../auth/hash';
+import { initDB as db } from '../../dbConfig';
+import { hash, passwordsMatch } from '../../../auth/hash';
 
 export const createUser = async ({ name, email, password }) => {
   const hashedPassword = await hash(password);
@@ -19,17 +19,3 @@ export const authenticateUser = async (email, password) => {
   const result = await passwordsMatch(password, storedPassword.password);
   if (!result) throw new Error('Password is incorrect, please try again');
 };
-
-export const checkGoogleUserExists = email =>
-  db()('Google_Users')
-    .where({ email })
-    .select('email');
-
-export const createGoogleUser = ({ name, email }) => db()('Google_Users').insert({ name, email });
-
-export const checkGithubUserExists = email =>
-  db()('Github_Users')
-    .where({ email })
-    .select('email');
-
-export const createGithubUser = ({ name, email }) => db()('Github_Users').insert({ name, email });
