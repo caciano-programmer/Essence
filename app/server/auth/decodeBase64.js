@@ -1,6 +1,7 @@
 // takes in a string in form 'Basic base64encoded(email:password)', return array containing user and pass decoded
 export async function decode(string) {
   const err = new Error('Send Credentials in proper format');
+  if (typeof string !== 'string') throw err;
   const authHeader = string.split(' ');
   if (authHeader.length !== 2) throw err;
 

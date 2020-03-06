@@ -1,16 +1,19 @@
-CREATE DATABASE Essence;
-Use Essence;
+CREATE DATABASE Essence_Test;
+USE Essence_Test;
+DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
     email CHAR(255) PRIMARY KEY,
     name CHAR(30) NOT NULL,
     password CHAR(76) NOT NULL,
     createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+DROP TABLE IF EXISTS Google_Users;
 CREATE TABLE Google_Users (
     email CHAR(255) PRIMARY KEY,
     name CHAR(30) NOT NULL,
     createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+DROP TABLE IF EXISTS Github_Users;
 CREATE TABLE Github_Users (
     email CHAR(255) PRIMARY KEY,
     name CHAR(30) NOT NULL,

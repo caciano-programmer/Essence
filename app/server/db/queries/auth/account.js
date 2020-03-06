@@ -3,7 +3,7 @@ import { hash, passwordsMatch } from '../../../auth/hash';
 
 export const createUser = async ({ name, email, password }) => {
   const hashedPassword = await hash(password);
-  return db()('Users')
+  return db('Users')
     .insert({ email, name, password: hashedPassword })
     .catch(() => {
       throw new Error('Email already exist');
@@ -11,7 +11,7 @@ export const createUser = async ({ name, email, password }) => {
 };
 
 export const authenticateUser = async (email, password) => {
-  const [storedPassword] = await db()
+  const [storedPassword] = await db
     .select('password')
     .from('Users')
     .where({ email });

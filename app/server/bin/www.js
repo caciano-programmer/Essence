@@ -1,12 +1,8 @@
 import debugLib from 'debug';
 import http from 'http';
-import { initDB } from '../db/dbConfig';
 import app from '../app/app';
 
 /* eslint-disable no-restricted-globals, no-unreachable, no-console */
-
-// initialize database
-initDB();
 
 const debug = debugLib('app:server');
 
