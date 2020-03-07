@@ -30,7 +30,7 @@ describe('test suite for login api endpoint', () => {
     expect(response.status).toBe(500);
     expect(response.body).toEqual({ Error: 'Email does not exist, plase check spelling' });
   });
-  test('should throw error if password isincorrect', async () => {
+  test('should throw error if password is incorrect', async () => {
     // base64 encoded for testing@test.com:BadPassword01
     const badCredentials = 'dGVzdGluZ0B0ZXN0LmNvbTpCYWRQYXNzd29yZDAx';
     const response = await request(app)
@@ -39,12 +39,15 @@ describe('test suite for login api endpoint', () => {
     expect(response.status).toBe(500);
     expect(response.body).toEqual({ Error: 'Password is incorrect, please try again' });
   });
-  test('test should succeed with status code 200, due to valid credentials', async () => {
+  test('test should succeed with status code 200 and return cookies, due to valid credentials', async () => {
     // base64 encoded for testing@test.com:Password01
     const goodCredentials = 'dGVzdGluZ0B0ZXN0LmNvbTpQYXNzd29yZDAx';
     const response = await request(app)
       .post('/login')
       .set('Authorization', `Basic ${goodCredentials}`);
+    const cookies = response.headers['set-cookie'].flatMap(cookie => cookie.split('=', 1));
+    expect(cookies).toContain('jwt');
+    expect(cookies).toContain('csrfToken');
     expect(response.status).toBe(200);
   });
 });

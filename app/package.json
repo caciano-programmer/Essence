@@ -23,7 +23,7 @@
     "transpile": "babel ./server --out-dir dist-server",
     "clean": "rimraf dist-server",
     "nodemon": "nodemon",
-    "test": "cross-env NODE_ENV=test jest --coverage",
+    "test": "cross-env NODE_ENV=test jest --runInBand --coverage",
     "build-client": "cd ../client && npm i && npm run build",
     "initialize": "npm-run-all build-client start"
   },
