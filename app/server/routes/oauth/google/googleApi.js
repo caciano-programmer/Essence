@@ -11,8 +11,7 @@ const router = express.Router();
 router.get(
   '/oauth/google',
   errorWrapper(async (req, res) => {
-    const url = authorizeUrl;
-    res.status(200).redirect(url);
+    res.redirect(authorizeUrl);
   }),
 );
 
