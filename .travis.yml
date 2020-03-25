@@ -7,8 +7,10 @@ services:
   - mysql
 
 before_install: 
-  - mysql -u root --password="" < ./config/initTestDB.sql
   - cd ./app
+
+before_script:
+  - mysql -u root --password="" < ./config/initTestDB.sql
 
 script:
   - npm run test:coveralls
