@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "essence_backend",
   "version": "1.0.0",
   "engines": {
     "node": ">=13.9.0"
