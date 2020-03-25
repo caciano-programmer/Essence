@@ -7,7 +7,7 @@ services:
   - mysql
 
 before_install: 
-  - cd ./app
+  - cd ./server
 
 before_script:
   - mysql -u root --password="" < ./sql/initTestDB.sql
