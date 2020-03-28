@@ -19,7 +19,8 @@ router.get(
 router.get(
   '/oauth/google/response',
   errorWrapper(async (req, res) => {
-    if (req.query == null || req.query.code == null) throw new Error('Server failure');
+    const error = new Error('Google authentication failed, please try logging in again');
+    if (req.query == null || req.query.code == null) throw error;
     const { code } = req.query;
     const { tokens } = await oauthClient.getToken(code);
     oauthClient.setCredentials(tokens);
