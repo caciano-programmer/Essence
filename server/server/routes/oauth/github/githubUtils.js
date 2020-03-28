@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { githubConfig } from './oauthGithubConfig';
-import { checkGithubUserExists, createGithubUser } from '../../../db/queries/auth/github';
 
 /* eslint-disable camelcase */
 
@@ -17,15 +16,20 @@ export const githubUrl = csrfToken => `
 
 // use access token to call github resource server apis to retrieve profile name and email
 export async function getUserData(accessToken) {
+  const accessTokenError = new Error('Server error getting github user data.');
   const emailData = await axios({
     method: 'get',
     url: userEmailApi,
     headers: { Accept: 'application/json', Authorization: `token ${accessToken}` },
+  }).catch(err => {
+    throw accessTokenError;
   });
   const profileData = await axios({
     method: 'get',
     url: userProfileApi,
     headers: { Accept: 'application/json', Authorization: `token ${accessToken}` },
+  }).catch(err => {
+    throw accessTokenError;
   });
   const [{ email }] = emailData.data.filter(emailObj => emailObj.primary === true);
   const name = profileData.data.name || profileData.data.login;
@@ -46,11 +50,7 @@ export function getAccessToken(code, state) {
       state,
     },
     headers: { Accept: 'application/json' },
+  }).catch(() => {
+    throw new Error('Github error retrieving access token');
   });
-}
-
-// checks if authenticated github user is a new user, if so then proceeds to create user
-export async function validateUser({ name, email }) {
-  const userExist = (await checkGithubUserExists(email)).length > 0;
-  if (!userExist) await createGithubUser({ name, email });
 }

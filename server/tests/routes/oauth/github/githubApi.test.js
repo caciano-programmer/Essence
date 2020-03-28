@@ -2,9 +2,16 @@ import request from 'supertest';
 import app from '../../../../server/app/app';
 
 describe('tests for github oauth route oauth/github', () => {
-  test('api should respond with redirect and status code 301', async () => {
+  test('api should respond with redirect and status code 302', async () => {
     const response = await request(app).get('/oauth/github');
     expect(response.status).toBe(302);
     expect(response.redirect).toBe(true);
+  });
+  test('should throw error if correct state is not present', async () => {
+    const badState = 'invalid state for testing purposes';
+    const response = await request(app)
+      .get('/oauth/github/response')
+      .query({ state: badState });
+    expect(response.status).toBe(500);
   });
 });

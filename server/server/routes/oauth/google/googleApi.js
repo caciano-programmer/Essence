@@ -2,8 +2,9 @@ import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { errorWrapper } from '../../errorWrapper';
 import { oauthClient, authorizeUrl, apiUrl } from './googleInit';
-import { checkGoogleUserExists, createGoogleUser } from '../../../db/queries/auth/google';
 import { addCsrfCookie, addJwtCookie } from '../../cookies';
+import { oauthService } from '../../../db/queries/oauth/oauthService';
+import { AccountTypes } from '../../../db/accountTypes';
 
 const router = express.Router();
 
@@ -38,7 +39,6 @@ async function validateUser(client) {
     data: { name, email },
   } = await client.request({ url: apiUrl });
   const modifiedName = name.substring(0, 30).trim();
-  const userExist = (await checkGoogleUserExists(email)).length > 0;
-  if (!userExist) await createGoogleUser({ name: modifiedName, email });
+  await oauthService(AccountTypes.GOOGLE).createWhenNewUser({ name: modifiedName, email });
   return email;
 }

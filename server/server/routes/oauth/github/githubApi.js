@@ -2,7 +2,9 @@ import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { errorWrapper } from '../../errorWrapper';
 import { addCsrfCookie, addJwtCookie } from '../../cookies';
-import { githubUrl, getAccessToken, getUserData, validateUser } from './githubUtils';
+import { githubUrl, getAccessToken, getUserData } from './githubUtils';
+import { AccountTypes } from '../../../db/accountTypes';
+import { oauthService } from '../../../db/queries/oauth/oauthService';
 
 // A set that will hold collection of csrf state values, recommended by github api docs
 const githubCsrfTokens = new Set();
@@ -25,7 +27,7 @@ router.get(
     if (!githubCsrfTokens.delete(state)) throw new Error('Server error');
     const { data } = await getAccessToken(req.query.code, state);
     const { name, email } = await getUserData(data.access_token);
-    await validateUser({ name, email });
+    await oauthService(AccountTypes.GITHUB).createWhenNewUser({ name, email });
     const uuid = uuidv4();
     await addCsrfCookie(res, uuid);
     await addJwtCookie(res, email, uuid);
