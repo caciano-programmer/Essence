@@ -25,8 +25,8 @@ router.get(
   errorWrapper(async (req, res) => {
     const { state } = req.query;
     if (!githubCsrfTokens.delete(state)) throw new Error('Server error');
-    const { data } = await getAccessToken(req.query.code, state);
-    const { name, email } = await getUserData(data.access_token);
+    const accessToken = await getAccessToken(req.query.code, state);
+    const { name, email } = await getUserData(accessToken);
     await oauthService(AccountTypes.GITHUB).createWhenNewUser({ name, email });
     const uuid = uuidv4();
     await addCsrfCookie(res, uuid);

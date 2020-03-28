@@ -16,11 +16,10 @@ describe('test for getUserData function', () => {
 });
 
 describe('test for getAccessToken function', () => {
-  test('function should catch error for invalid access code used', async () => {
+  test('response should indicate bad code entered', async () => {
     const invalidCode = 'this is an invalid code for testing purposes';
-    const {
-      data: { error },
-    } = await getAccessToken(invalidCode);
-    expect(error).toMatch(error);
+    await expect(getAccessToken(invalidCode)).rejects.toThrow(
+      'Github authentication error, please try logging in again',
+    );
   });
 });

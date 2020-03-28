@@ -21,14 +21,14 @@ export async function getUserData(accessToken) {
     method: 'get',
     url: userEmailApi,
     headers: { Accept: 'application/json', Authorization: `token ${accessToken}` },
-  }).catch(err => {
+  }).catch(() => {
     throw accessTokenError;
   });
   const profileData = await axios({
     method: 'get',
     url: userProfileApi,
     headers: { Accept: 'application/json', Authorization: `token ${accessToken}` },
-  }).catch(err => {
+  }).catch(() => {
     throw accessTokenError;
   });
   const [{ email }] = emailData.data.filter(emailObj => emailObj.primary === true);
@@ -38,8 +38,8 @@ export async function getUserData(accessToken) {
 }
 
 // use code to call github api for access token
-export function getAccessToken(code, state) {
-  return axios({
+export async function getAccessToken(code, state) {
+  const { data } = await axios({
     method: 'post',
     url: resource_api,
     data: {
@@ -50,7 +50,7 @@ export function getAccessToken(code, state) {
       state,
     },
     headers: { Accept: 'application/json' },
-  }).catch(() => {
-    throw new Error('Github error retrieving access token');
   });
+  if (data.error != null) throw new Error('Github authentication error, please try logging in again');
+  return data.access_token;
 }
