@@ -1,5 +1,4 @@
 import express from 'express';
-import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import helmet from 'helmet';
@@ -10,11 +9,10 @@ const app = express();
   TODO in future make sure when a new account is create in either basic or oauth, 
   it redirects to update profile page instead of home page
 */
-app.use(helmet());
 app.use(logger('dev'));
+app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../../../client/build/')));
 app.use(routes);
 app.get('/*', (req, res) => {
   res.redirect('/');

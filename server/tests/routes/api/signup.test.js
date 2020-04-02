@@ -49,7 +49,6 @@ describe('Tests for signup endpoint:', () => {
       .where({ email: user.email });
     expect(response.status).toBe(200);
     expect(cookies).toContain('jwt');
-    expect(cookies).toContain('csrfToken');
     expect(newInsertedUser.length).toBe(1);
     await db('Users').del();
   });

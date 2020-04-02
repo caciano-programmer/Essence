@@ -4,19 +4,21 @@ import { errorWrapper } from '../errorWrapper';
 import { decode } from '../../auth/decodeBase64';
 import { validateLogin } from '../../auth/validate';
 import { authenticateUser } from '../../db/queries/auth/account';
-import { addCsrfCookie, addJwtCookie } from '../cookies';
+import { addJwtCookie } from '../cookies';
 
 const router = express.Router();
 
 router.post(
   '/login',
   errorWrapper(async (req, res) => {
+    console.log('called', req.get('Authorization') == null);
     const [email, password] = await decode(req.get('Authorization'));
+    console.log(email, password, req.get('Authorization'));
     const uuid = uuidv4();
     await validateLogin({ email, password });
     await authenticateUser(email, password);
-    await addCsrfCookie(res, uuid);
     await addJwtCookie(res, email, uuid);
+    res.set('csrf-token', uuid);
     res.status(200).send();
   }),
 );

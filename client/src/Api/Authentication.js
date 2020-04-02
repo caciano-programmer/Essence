@@ -1,22 +1,42 @@
 import axios from 'axios';
 
-const WebAddress = 'localhost:4000';
-const header = {};
+const sharedHeaders = (email, password) => ({
+  'Content-Type': 'application/json',
+  Authorization: `Basic ${Buffer.from(`${email}:${password}`).toString('base64')}`,
+});
 
-export const login = credentials =>
-  axios({
+export const authService = {
+  login,
+  signup,
+  logout,
+};
+
+function signup(credentials) {
+  return axios({
     method: 'post',
-    url: `${WebAddress}/login`,
-    headers: header,
-    data: credentials,
+    url: '/signup',
+    headers: sharedHeaders(credentials.email, credentials.password),
+    data: { confirm: credentials.confirm, name: credentials.name },
+  }).then(response => {
+    localStorage.setItem('csrf-token', response.headers['csrf-token']);
+    return response.statusText;
   });
+}
 
-export const signup = credentials =>
-  axios({
+function login(credentials) {
+  return axios({
     method: 'post',
-    url: `${WebAddress}/signup`,
-    headers: header,
-    data: credentials,
+    url: '/login',
+    headers: sharedHeaders(credentials.email, credentials.password),
+  }).then(response => {
+    localStorage.setItem('csrf-token', response.headers['csrf-token']);
+    return response.statusText;
   });
+}
 
-export const logout = () => {};
+function logout() {
+  return axios({
+    method: 'get',
+    url: '/logout',
+  }).then(data => data.statusText);
+}

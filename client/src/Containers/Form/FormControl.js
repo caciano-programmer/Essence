@@ -3,13 +3,13 @@ import { Formik } from 'formik';
 import { BootstrapForm } from '../../Components/Form/BootstrapForm';
 import { loginSchema, signupSchema } from '../../Utils/LoginFormValidation';
 import { Oauth } from '../../Components/Form/Oauth';
-import { login, signup } from '../../Api/Authentication';
+import { authService } from '../../Api/Authentication';
 
-const onSubmit = (values, { setSubmitting, resetForm }) => {
-  signup(values)
+const onSubmit = (values, userExists, { setSubmitting, resetForm }, service = authService) => {
+  resetForm();
+  const serviceAction = userExists ? service.login : service.signup;
+  serviceAction(values)
     .then(res => {
-      console.log(res);
-      resetForm();
       setSubmitting(false);
     })
     .catch(error => {
@@ -29,7 +29,7 @@ export const FormControl = () => {
         initialValues={{ name: '', email: '', confirm: '', password: '' }}
         validationSchema={userExists ? loginSchema : signupSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          onSubmit(values, { setSubmitting, resetForm });
+          onSubmit(values, userExists, { setSubmitting, resetForm });
         }}
         validateOnChange={false}
         validateOnBlur={false}
