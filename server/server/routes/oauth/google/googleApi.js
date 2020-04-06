@@ -2,7 +2,7 @@ import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { errorWrapper } from '../../errorWrapper';
 import { oauthClient, authorizeUrl, apiUrl } from './googleInit';
-import { addCsrfCookie, addJwtCookie } from '../../cookies';
+import { addJwtCookie } from '../../cookies';
 import { oauthService } from '../../../db/queries/oauth/oauthService';
 import { AccountTypes } from '../../../db/accountTypes';
 
@@ -12,7 +12,7 @@ const router = express.Router();
 router.get(
   '/oauth/google',
   errorWrapper(async (req, res) => {
-    res.redirect(authorizeUrl);
+    res.send({ url: authorizeUrl });
   }),
 );
 
@@ -26,9 +26,10 @@ router.get(
     oauthClient.setCredentials(tokens);
     const email = await validateUser(oauthClient);
     const uuid = uuidv4();
-    await addCsrfCookie(res, uuid);
     await addJwtCookie(res, email, uuid);
-    res.status(200).redirect('/');
+    res.set('csrf-token', uuid);
+    const redirectUrl = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000';
+    res.status(200).redirect(redirectUrl);
   }),
 );
 

@@ -11,9 +11,7 @@ const router = express.Router();
 router.post(
   '/login',
   errorWrapper(async (req, res) => {
-    console.log('called', req.get('Authorization') == null);
     const [email, password] = await decode(req.get('Authorization'));
-    console.log(email, password, req.get('Authorization'));
     const uuid = uuidv4();
     await validateLogin({ email, password });
     await authenticateUser(email, password);

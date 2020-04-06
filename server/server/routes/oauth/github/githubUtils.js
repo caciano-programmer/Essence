@@ -5,14 +5,15 @@ import { githubConfig } from './oauthGithubConfig';
 
 const { client_id, client_secret, redirect_uri, resource_api, userEmailApi, userProfileApi } = githubConfig;
 
-export const githubUrl = csrfToken => `
-    https://github.com/login/oauth/authorize?
-    client_id=${client_id}&
-    redirect_uri=${redirect_uri}&
-    scope=user:email%20read:user&
-    state=${csrfToken}&
-    allow_signup=true
-`;
+export const githubUrl = csrfToken =>
+  `
+  https://github.com/login/oauth/authorize?\
+  client_id=${client_id}&\
+  redirect_uri=${redirect_uri}&\
+  scope=user:email%20read:user&\
+  state=${csrfToken}&\
+  allow_signup=true
+`.replace(/(\s)*/g, '');
 
 // use access token to call github resource server apis to retrieve profile name and email
 export async function getUserData(accessToken) {

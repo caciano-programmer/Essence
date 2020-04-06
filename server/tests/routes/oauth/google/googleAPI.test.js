@@ -2,10 +2,10 @@ import request from 'supertest';
 import app from '../../../../server/app/app';
 
 describe('test for google endpoint /oauth/google', () => {
-  test('should respond with redirect url and respond with status code 302', async () => {
+  test('should respond with redirect url and respond with status code 200', async () => {
     const response = await request(app).get('/oauth/google');
-    expect(response.status).toBe(302);
-    expect(response.redirect).toBe(true);
+    expect(response.statusCode).toBe(200);
+    expect(response.body.url).toBeDefined();
   });
 });
 

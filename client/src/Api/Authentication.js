@@ -1,10 +1,5 @@
 import axios from 'axios';
 
-const sharedHeaders = (email, password) => ({
-  'Content-Type': 'application/json',
-  Authorization: `Basic ${Buffer.from(`${email}:${password}`).toString('base64')}`,
-});
-
 export const authService = {
   login,
   signup,
@@ -39,4 +34,11 @@ function logout() {
     method: 'get',
     url: '/logout',
   }).then(data => data.statusText);
+}
+
+function sharedHeaders(email, password) {
+  return {
+    'Content-Type': 'application/json',
+    Authorization: `Basic ${Buffer.from(`${email}:${password}`).toString('base64')}`,
+  };
 }

@@ -24,7 +24,7 @@ export const FormControl = () => {
   };
   return (
     <>
-      {userExists && <Oauth />}
+      <Oauth />
       <Formik
         initialValues={{ name: '', email: '', confirm: '', password: '' }}
         validationSchema={userExists ? loginSchema : signupSchema}

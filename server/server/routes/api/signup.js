@@ -11,7 +11,6 @@ const router = express.Router();
 router.post(
   '/signup',
   errorWrapper(async (req, res) => {
-    console.log(req.cookies);
     const [email, password] = await decode(req.get('Authorization'));
     const signUp = { ...req.body, email, password };
     const uuid = uuidv4();
