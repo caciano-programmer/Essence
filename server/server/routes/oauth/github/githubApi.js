@@ -1,7 +1,7 @@
 import express from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { errorWrapper } from '../../errorWrapper';
-import { addJwtCookie } from '../../cookies';
+import { addJwtCookie, addCsrfCookie } from '../../cookies';
 import { githubUrl, getAccessToken, getUserData } from './githubUtils';
 import { AccountTypes } from '../../../db/accountTypes';
 import { oauthService } from '../../../db/queries/oauth/oauthService';
@@ -30,9 +30,9 @@ router.get(
     await oauthService(AccountTypes.GITHUB).createWhenNewUser({ name, email });
     const uuid = uuidv4();
     await addJwtCookie(res, email, uuid);
-    res.set('csrf-token', uuid);
+    await addCsrfCookie(res, uuid);
     const redirectUrl = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000';
-    res.status(200).redirect(redirectUrl);
+    res.redirect(redirectUrl);
   }),
 );
 

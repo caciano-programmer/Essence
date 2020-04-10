@@ -12,10 +12,7 @@ function signup(credentials) {
     url: '/signup',
     headers: sharedHeaders(credentials.email, credentials.password),
     data: { confirm: credentials.confirm, name: credentials.name },
-  }).then(response => {
-    localStorage.setItem('csrf-token', response.headers['csrf-token']);
-    return response.statusText;
-  });
+  }).then(response => response.statusText);
 }
 
 function login(credentials) {
@@ -23,10 +20,7 @@ function login(credentials) {
     method: 'post',
     url: '/login',
     headers: sharedHeaders(credentials.email, credentials.password),
-  }).then(response => {
-    localStorage.setItem('csrf-token', response.headers['csrf-token']);
-    return response.statusText;
-  });
+  }).then(response => response.statusText);
 }
 
 function logout() {

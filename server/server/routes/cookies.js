@@ -9,6 +9,15 @@ export const addJwtCookie = async (response, email, uuid) => {
   });
 };
 
+export const addCsrfCookie = async (response, uuid) => {
+  response.cookie('csrf', uuid, {
+    sameSite: true,
+    secure: process.env.NODE_ENV === 'production',
+    expires: addHours(16),
+    httpOnly: false,
+  });
+};
+
 function addHours(hours) {
   const date = new Date();
   date.setHours(date.getHours() + hours);

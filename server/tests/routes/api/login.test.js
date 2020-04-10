@@ -47,6 +47,7 @@ describe('test suite for login api endpoint', () => {
       .set('Authorization', `Basic ${goodCredentials}`);
     const cookies = response.headers['set-cookie'].flatMap(cookie => cookie.split('=', 1));
     expect(cookies).toContain('jwt');
+    expect(cookies).toContain('csrf');
     expect(response.status).toBe(200);
   });
 });

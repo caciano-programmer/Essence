@@ -1,9 +1,9 @@
 import { githubUrl, getUserData, getAccessToken } from '../../../../server/routes/oauth/github/githubUtils';
 
 describe('test for githubUrl function', () => {
-  test('function should return string url that matches sepecified form', () => {
-    const urlRegex = /^.*random\stoken.*$/m;
-    const url = githubUrl('random token');
+  test('function should return string url that contains token', () => {
+    const urlRegex = /^.*randomtoken.*$/;
+    const url = githubUrl('randomtoken');
     expect(urlRegex.test(url)).toBe(true);
   });
 });

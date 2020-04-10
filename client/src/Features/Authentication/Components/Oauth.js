@@ -1,5 +1,5 @@
 import React from 'react';
-import { oauthService as oauth } from '../../Api/Oauth';
+import { oauthService as oauth } from '../../../Api/Oauth';
 
 export const Oauth = () => (
   <>

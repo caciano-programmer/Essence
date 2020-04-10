@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import { BootstrapForm } from '../../Components/Form/BootstrapForm';
-import { loginSchema, signupSchema } from '../../Utils/LoginFormValidation';
-import { Oauth } from '../../Components/Form/Oauth';
-import { authService } from '../../Api/Authentication';
+import { BootstrapForm } from '../Components/BootstrapForm';
+import { loginSchema, signupSchema } from '../Utils/LoginFormValidation';
+import { Oauth } from '../Components/Oauth';
+import { authService } from '../../../Api/Authentication';
 
 const onSubmit = (values, userExists, { setSubmitting, resetForm }, service = authService) => {
   resetForm();
@@ -17,7 +17,7 @@ const onSubmit = (values, userExists, { setSubmitting, resetForm }, service = au
     });
 };
 
-export const FormControl = () => {
+export const Authentication = () => {
   const [userExists, updateUserExists] = useState(true);
   const existence = () => {
     updateUserExists(!userExists);

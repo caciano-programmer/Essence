@@ -4,7 +4,7 @@ import { errorWrapper } from '../errorWrapper';
 import { decode } from '../../auth/decodeBase64';
 import { validateSignup } from '../../auth/validate';
 import { createUser } from '../../db/queries/auth/account';
-import { addJwtCookie } from '../cookies';
+import { addJwtCookie, addCsrfCookie } from '../cookies';
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.post(
     await validateSignup(signUp);
     await createUser(signUp);
     await addJwtCookie(res, email, uuid);
-    res.set('csrf-token', uuid);
+    await addCsrfCookie(res, uuid);
     res.status(200).send();
   }),
 );
