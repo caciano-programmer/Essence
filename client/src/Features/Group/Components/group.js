@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const Group = props => <div>Group</div>;
+export default props => <div>Group</div>;

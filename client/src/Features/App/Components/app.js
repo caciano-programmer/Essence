@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const App = props => <div>App</div>;
+export default props => <div>App</div>;

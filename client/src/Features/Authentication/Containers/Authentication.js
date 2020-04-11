@@ -17,7 +17,7 @@ const onSubmit = (values, userExists, { setSubmitting, resetForm }, service = au
     });
 };
 
-export const Authentication = () => {
+export default () => {
   const [userExists, updateUserExists] = useState(true);
   const existence = () => {
     updateUserExists(!userExists);
