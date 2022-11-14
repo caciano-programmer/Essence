@@ -1,7 +1,5 @@
 function App() {
-  return (
-    <div>Hello World!</div>
-  )
+  return <div css={{ color: 'green', fontSize: '50px' }}>Hello World!</div>;
 }
 
-export default App
+export default App;

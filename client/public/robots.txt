@@ -1,0 +1,4 @@
+# https://www.robotstxt.org/robotstxt.html
+# TODO update this file after project complete
+User-agent: *
+Disallow:
