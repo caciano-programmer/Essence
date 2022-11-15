@@ -7,11 +7,13 @@
     "lint": "eslint src",
     "start": "vite",
     "build": "rimraf dist && tsc && vite build",
-    "preview": "npm run build && vite preview"
+    "preview": "npm run build && vite preview",
+    "analyze": "source-map-explorer 'build/assets/*.js'"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.3"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.10.5",
