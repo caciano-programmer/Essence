@@ -5,7 +5,7 @@ import router from '../router/router';
 
 function App() {
   return (
-    <Box>
+    <Box sx={{ height: '100%', width: '100%' }}>
       <Header />
       <RouterProvider router={router} />
     </Box>

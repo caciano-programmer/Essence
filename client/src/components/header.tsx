@@ -1,13 +1,23 @@
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { HEADER_HEIGHT, HEADER_WIDTH } from '../constants/constants';
 
-const HEADER_SIZE = { width: '100vw', height: '10vh' };
+const size = { width: HEADER_WIDTH, height: HEADER_HEIGHT };
 
 function Header() {
   return (
-    <Box sx={HEADER_SIZE}>
+    <Box sx={size}>
       <AppBar>
-        <Toolbar sx={HEADER_SIZE}>
-          <Typography variant="h4">Logo</Typography>
+        <Toolbar sx={size}>
+          <Typography variant="h2" sx={{ flexGrow: 1 }}>
+            Logo
+          </Typography>
+          <Typography variant="h5" sx={{ mr: 4 }}>
+            {/* <Link to="login">Login</Link> */}
+          </Typography>
+          <Typography variant="h5" sx={{ mr: 4 }}>
+            Demo
+          </Typography>
         </Toolbar>
       </AppBar>
     </Box>
