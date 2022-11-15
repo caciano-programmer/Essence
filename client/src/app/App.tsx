@@ -1,5 +1,7 @@
+import { Box } from '@mui/material';
+
 function App() {
-  return <div css={{ color: 'green', fontSize: '50px' }}>Hello World!</div>;
+  return <Box>Hi</Box>;
 }
 
 export default App;

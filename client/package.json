@@ -4,10 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "delete": "rimraf dist",
-    "lint": "tsc && eslint src",
-    "start": "tsc && vite",
-    "build": "npm run delete && tsc && vite build",
+    "lint": "eslint src",
+    "start": "vite",
+    "build": "rimraf dist && tsc && vite build",
     "preview": "npm run build && vite preview"
   },
   "dependencies": {
