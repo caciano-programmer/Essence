@@ -7,19 +7,18 @@
     "lint": "eslint src",
     "start": "vite",
     "build": "rimraf dist && tsc && vite build",
-    "preview": "npm run build && vite preview",
-    "analyze": "source-map-explorer 'build/assets/*.js'"
+    "preview": "npm run build && vite preview"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.3"
+    "react-router-dom": "^6.4.3",
+    "@mui/material": "^5.10.13"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.10.5",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@mui/material": "^5.10.13",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@typescript-eslint/eslint-plugin": "^5.43.0",

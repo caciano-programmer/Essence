@@ -13,10 +13,10 @@ function Header() {
             Logo
           </Typography>
           <Typography variant="h5" sx={{ mr: 4 }}>
-            {/* <Link to="login">Login</Link> */}
+            <Link to="/login">Login</Link>
           </Typography>
           <Typography variant="h5" sx={{ mr: 4 }}>
-            Demo
+            <Link to="/essence">Demo</Link>
           </Typography>
         </Toolbar>
       </AppBar>
