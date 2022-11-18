@@ -4,7 +4,7 @@ import { HEADER_HEIGHT, HEADER_WIDTH } from '../constants/constants';
 
 const size = { width: HEADER_WIDTH, height: HEADER_HEIGHT };
 
-function Header() {
+export default function Header() {
   return (
     <Box sx={size}>
       <AppBar>
@@ -23,5 +23,3 @@ function Header() {
     </Box>
   );
 }
-
-export default Header;
