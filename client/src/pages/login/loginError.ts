@@ -9,7 +9,7 @@ const ErrorList: { [key: string]: LoginError } = {
   nameMissing: { isError: true, error: 'Name required.', input: 'name' },
   nameTooLong: { isError: true, error: 'Name must be less than 16 characters.', input: 'name' },
   passwordMissing: { isError: true, error: 'Password required.', input: 'password' },
-  passwordLength: { isError: true, error: 'Password must be between 7-20 characters', input: 'password' },
+  passwordLength: { isError: true, error: 'Password must be between 7-25 characters', input: 'password' },
   passwordContainNumber: { isError: true, error: 'Password must contain a 1 or more numbers.', input: 'password' },
   passwordContainLetter: { isError: true, error: 'Passowrd must contain 1 or more letters.', input: 'password' },
   confirmMismatch: { isError: true, error: 'Feild must match password.', input: 'confirm' },
@@ -48,7 +48,7 @@ function nameCheck(name: string): LoginError {
 
 function passwordCheck(pass: string): LoginError {
   if (pass.length === 0) return ErrorList.passwordMissing;
-  if (pass.length > 20 || pass.length < 7) return ErrorList.passwordLength;
+  if (pass.length > 25 || pass.length < 7) return ErrorList.passwordLength;
   if (!/\d/.test(pass)) return ErrorList.passwordContainNumber;
   if (!/[a-zA-Z]/.test(pass)) return ErrorList.passwordContainLetter;
   return noErrorState;

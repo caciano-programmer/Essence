@@ -27,7 +27,6 @@ export default function Login() {
 
   function submit() {
     const error = isNewUser ? checkForErrors({ name, email, password, confirm }) : checkForErrors({ email, password });
-    console.log(error);
     if (error.isError) setErrorState(error);
   }
 
@@ -44,7 +43,6 @@ export default function Login() {
             helperText={errorState.isError && errorState.input === 'name' ? errorState.error : ''}
             variant="standard"
             label="Name"
-            required
             inputProps={{ maxLength: 15 }}
             onChange={({ target: { value } }) => setName(value)}
             sx={{ flex: 1 }}
@@ -56,7 +54,6 @@ export default function Login() {
           helperText={errorState.isError && errorState.input === 'email' ? errorState.error : ''}
           variant="standard"
           label="Email"
-          required
           inputProps={{ maxLength: 64 }}
           onChange={({ target: { value } }) => setEmail(value)}
           sx={{ flex: 1 }}
@@ -67,8 +64,7 @@ export default function Login() {
           helperText={errorState.isError && errorState.input === 'password' ? errorState.error : ''}
           variant="standard"
           label="Password"
-          required
-          inputProps={{ maxLength: 20, type: passwordVisibility ? 'text' : 'password' }}
+          inputProps={{ maxLength: 25, type: passwordVisibility ? 'text' : 'password' }}
           InputProps={{
             endAdornment: (
               <VisibilityIcon visible={passwordVisibility} fn={() => setPasswordVisibility(current => !current)} />
@@ -84,8 +80,7 @@ export default function Login() {
             helperText={errorState.isError && errorState.input === 'confirm' ? errorState.error : ''}
             variant="standard"
             label="Confirm Password"
-            required
-            inputProps={{ maxLength: 20, type: passwordVisibility ? 'text' : 'password' }}
+            inputProps={{ maxLength: 25, type: passwordVisibility ? 'text' : 'password' }}
             InputProps={{
               endAdornment: (
                 <VisibilityIcon visible={passwordVisibility} fn={() => setPasswordVisibility(current => !current)} />
