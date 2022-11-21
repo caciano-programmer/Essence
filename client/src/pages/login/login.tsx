@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { Box, Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import { useState } from 'react';
-import { PAGE_HEIGHT, PAGE_WIDTH } from '../../constants/constants';
+import { emptyUser, PAGE_HEIGHT, PAGE_WIDTH } from '../../constants/constants';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { checkForErrors, noErrorState } from './loginError';
+import { authenticate } from '../../api/api';
 
 const StyledForm = styled.form({
   height: '60%',
@@ -17,17 +18,23 @@ const StyledForm = styled.form({
 });
 
 export default function Login() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState(emptyUser);
   const [confirm, setConfirm] = useState('');
   const [isNewUser, setIsNewUser] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [errorState, setErrorState] = useState(noErrorState);
+  const [bool, setBool] = useState(false);
 
   function submit() {
-    const error = isNewUser ? checkForErrors({ name, email, password, confirm }) : checkForErrors({ email, password });
-    if (error.isError) setErrorState(error);
+    const error = isNewUser
+      ? checkForErrors({ ...user, confirm })
+      : checkForErrors({ email: user.email, password: user.password });
+    setErrorState(error);
+    if (!error.isError)
+      authenticate(user).then(
+        res => console.log(res),
+        rej => console.log(rej),
+      );
   }
 
   return (
@@ -38,28 +45,28 @@ export default function Login() {
         </div>
         {isNewUser && (
           <TextField
-            value={name}
+            value={user.name}
             error={errorState.isError && errorState.input === 'name'}
             helperText={errorState.isError && errorState.input === 'name' ? errorState.error : ''}
             variant="standard"
             label="Name"
             inputProps={{ maxLength: 15 }}
-            onChange={({ target: { value } }) => setName(value)}
+            onChange={({ target: { value } }) => setUser(curr => ({ ...curr, name: value.replaceAll(' ', '') }))}
             sx={{ flex: 1 }}
           />
         )}
         <TextField
-          value={email}
+          value={user.email}
           error={errorState.isError && errorState.input === 'email'}
           helperText={errorState.isError && errorState.input === 'email' ? errorState.error : ''}
           variant="standard"
           label="Email"
           inputProps={{ maxLength: 64 }}
-          onChange={({ target: { value } }) => setEmail(value)}
+          onChange={({ target: { value } }) => setUser(curr => ({ ...curr, email: value.trim() }))}
           sx={{ flex: 1 }}
         />
         <TextField
-          value={password}
+          value={user.password}
           error={errorState.isError && errorState.input === 'password'}
           helperText={errorState.isError && errorState.input === 'password' ? errorState.error : ''}
           variant="standard"
@@ -67,10 +74,10 @@ export default function Login() {
           inputProps={{ maxLength: 25, type: passwordVisibility ? 'text' : 'password' }}
           InputProps={{
             endAdornment: (
-              <VisibilityIcon visible={passwordVisibility} fn={() => setPasswordVisibility(current => !current)} />
+              <VisibilityIcon visible={passwordVisibility} fn={() => setPasswordVisibility(curr => !curr)} />
             ),
           }}
-          onChange={({ target: { value } }) => setPassword(value)}
+          onChange={({ target: { value } }) => setUser(curr => ({ ...curr, password: value.replaceAll(' ', '') }))}
           sx={{ flex: 1 }}
         />
         {isNewUser && (
@@ -83,7 +90,7 @@ export default function Login() {
             inputProps={{ maxLength: 25, type: passwordVisibility ? 'text' : 'password' }}
             InputProps={{
               endAdornment: (
-                <VisibilityIcon visible={passwordVisibility} fn={() => setPasswordVisibility(current => !current)} />
+                <VisibilityIcon visible={passwordVisibility} fn={() => setPasswordVisibility(curr => !curr)} />
               ),
             }}
             onChange={({ target: { value } }) => setConfirm(value)}
@@ -91,7 +98,16 @@ export default function Login() {
           />
         )}
         <div css={{ alignSelf: 'center', flex: 1 }}>
-          <Button variant="text" onClick={() => setIsNewUser(curr => !curr)} sx={{ mx: 4 }}>
+          <Button
+            variant="text"
+            onClick={() => {
+              setUser({ ...emptyUser });
+              setIsNewUser(curr => !curr);
+              setConfirm('');
+              setErrorState({ ...noErrorState });
+            }}
+            sx={{ mx: 4 }}
+          >
             {isNewUser ? 'Login instead?' : 'Create account'}
           </Button>
           <Button variant="outlined" size="medium" onClick={submit} sx={{ mx: 4 }}>
