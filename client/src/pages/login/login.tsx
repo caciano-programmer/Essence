@@ -23,7 +23,6 @@ export default function Login() {
   const [isNewUser, setIsNewUser] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [errorState, setErrorState] = useState(noErrorState);
-  const [bool, setBool] = useState(false);
 
   function submit() {
     const error = isNewUser

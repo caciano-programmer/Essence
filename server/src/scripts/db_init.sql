@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS users (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR(15) NOT NULL,
+    email VARCHAR(64) NOT NULL UNIQUE,
+    password VARCHAR(25) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT current_timestamp,
+    PRIMARY KEY(id)
+);

@@ -6,11 +6,11 @@ const localhost = '127.0.0.1';
 const dev_port = 4000;
 
 /** Production Url Info */
-const URL = 'UrlServerLocation';
-const SERVER_PORT = 8080;
+const HOST = process.env.HOST || localhost;
+const SERVER_PORT = Number(process.env.PORT) || dev_port;
 
 /** Server Info */
-const hostname = process.env.NODE_ENV === 'development' ? localhost : URL;
+const hostname = process.env.NODE_ENV === 'development' ? localhost : HOST;
 const port = process.env.NODE_ENV === 'development' ? dev_port : SERVER_PORT;
 
 /** Create Server */
