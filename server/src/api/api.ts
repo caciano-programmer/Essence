@@ -1,33 +1,33 @@
 import express from 'express';
 import cors from 'cors';
-import { createUser } from '../db/db.js';
+import { createUser, login } from '../db/db.js';
+import { HttpError } from '../error/errorHandler.js';
 
-/** Create router */
+/* Create router */
 const router = express.Router();
 
-/** Router middleware */
+/* Router middleware */
 router.use(express.json());
 
-/** Development middleware */
-if (process.env.NODE_ENV === 'development') {
-  router.use(cors());
-}
+/* Development middleware */
+if (process.env.NODE_ENV === 'development') router.use(cors());
+
 /* TODO move database logic to dependency injection */
-/* TODO create custom express error handler middleware */
-router.post('/api/login', async (request, response) => {
-  if (!Object.hasOwn(request.body, 'email') && !Object.hasOwn(request.body, 'password'))
-    throw new Error('Invalid login credentials');
+router.post('/api/login', (request, response, next) => {
   const { email, password } = request.body;
-  response.end();
+  if (typeof email === 'undefined' || typeof password === 'undefined') throw new HttpError('Missing credentials', 400);
+  login(email, password)
+    .then(() => response.status(201).end())
+    .catch(error => next(error));
 });
 
-router.post('/api/create', async (request, response) => {
-  const obj = { ...request.body };
-  if (!Object.hasOwn(obj, 'email') && !Object.hasOwn(obj, 'password') && !Object.hasOwn(obj, 'name'))
-    throw new Error('Invalid login credentials');
+router.post('/api/create', (request, response, next) => {
   const { name, email, password } = request.body;
-  const user = await createUser(name, email, password);
-  response.status(200);
+  if (typeof name === 'undefined' || typeof email === 'undefined' || typeof password === 'undefined')
+    throw new HttpError('Missing credentials', 400);
+  createUser(name, email, password)
+    .then(() => response.status(201).end())
+    .catch(error => next(error));
 });
 
 export default router;

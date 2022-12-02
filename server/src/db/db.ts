@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import postgres from 'pg';
+import { HttpError } from '../error/errorHandler.js';
 
 const salt = bcrypt.genSaltSync(10);
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -11,17 +12,15 @@ const pool = new postgres.Pool({
   port: 5432,
 });
 
-/** queries */
+/* queries */
 const InsertUser = 'INSERT INTO users (name, email, password) VALUES($1, $2, $3)';
 
+export async function login(email: string, password: string) {}
+
 export async function createUser(name: string, email: string, password: string) {
-  const client = await pool.connect();
   try {
-    const result = await client.query({ text: InsertUser, values: [name, email, password] });
-    return result.rows;
+    await pool.query({ text: InsertUser, values: [name, email, password] });
   } catch (err) {
-    if (err instanceof Error) throw err.message;
-  } finally {
-    client.release();
+    if (err instanceof Error) throw new HttpError('Email already exists.', 400);
   }
 }

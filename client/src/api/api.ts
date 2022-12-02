@@ -1,11 +1,11 @@
 import axios from 'axios';
 import type { User } from '../constants/constants';
 
-/** Development Url Info */
+/* Development Url Info */
 const localhost = '127.0.0.1';
 const dev_port = 4000;
 
-/** Production Url Info */
+/* Production Url Info */
 const URL = 'UrlServerLocation';
 const SERVER_PORT = 8080;
 
