@@ -1,10 +1,10 @@
-import { createBrowserRouter, createRoutesFromElements, Outlet, Route } from 'react-router-dom';
-import Header from '../components/header';
+import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import Error from '../pages/error/error';
 import Essence from '../pages/essence/essence';
 import Landing from '../pages/landing/landing';
 import Login from '../pages/login/login';
 import Profile from '../pages/profile/profile';
+import Layout from '../layout/layout';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,12 +18,3 @@ const router = createBrowserRouter(
 );
 
 export default router;
-
-function Layout() {
-  return (
-    <>
-      <Header />
-      <Outlet />
-    </>
-  );
-}

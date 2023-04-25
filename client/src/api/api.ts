@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { User } from '../constants/constants';
+import type { LoginUser } from '../constants/constants';
 
 /* Development Url Info */
 const localhost = '127.0.0.1';
@@ -17,7 +17,7 @@ const instance = axios.create({
   baseURL: `http${dev_mode ? '' : 's'}://${host}:${port}/api`,
 });
 
-export function authenticate({ name, email, password }: User) {
+export function authenticate({ name, email, password }: LoginUser) {
   if (name === '') return login(email, password);
   return createUser(name, email, password);
 }

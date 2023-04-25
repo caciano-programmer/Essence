@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 import { Box, Button, IconButton, InputAdornment, TextField } from '@mui/material';
-import { useState } from 'react';
-import { emptyUser, PAGE_HEIGHT, PAGE_WIDTH } from '../../constants/constants';
+import { useContext, useState } from 'react';
+import { emptyLoginUser, PAGE_HEIGHT, PAGE_WIDTH } from '../../constants/constants';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { checkForErrors, noErrorState } from './loginError';
+import { apiError, checkForErrors, noErrorState } from './loginError';
 import { authenticate } from '../../api/api';
+import { UserContext } from '../../layout/userContext';
+import { useNavigate } from 'react-router-dom';
 
 const StyledForm = styled.form({
   height: '60%',
@@ -18,11 +20,13 @@ const StyledForm = styled.form({
 });
 
 export default function Login() {
-  const [user, setUser] = useState(emptyUser);
+  const [user, setUser] = useState(emptyLoginUser);
   const [confirm, setConfirm] = useState('');
   const [isNewUser, setIsNewUser] = useState(false);
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [errorState, setErrorState] = useState(noErrorState);
+  const userContext = useContext(UserContext);
+  const navigate = useNavigate();
 
   function submit() {
     const error = isNewUser
@@ -31,8 +35,11 @@ export default function Login() {
     setErrorState(error);
     if (!error.isError)
       authenticate(user).then(
-        res => console.log(res),
-        rej => console.log(rej),
+        ({ data: { name, email } }) => {
+          userContext.setUser({ name, email });
+          navigate('/essence');
+        },
+        ({ response }) => setErrorState(apiError(isNewUser, response.data)),
       );
   }
 
@@ -100,7 +107,7 @@ export default function Login() {
           <Button
             variant="text"
             onClick={() => {
-              setUser({ ...emptyUser });
+              setUser({ ...emptyLoginUser });
               setIsNewUser(curr => !curr);
               setConfirm('');
               setErrorState({ ...noErrorState });
