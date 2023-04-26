@@ -1,6 +1,11 @@
 import express from 'express';
 import router from './api/api.js';
 import { errorHandler } from './error/errorHandler.js';
+declare module 'express-session' {
+  interface Session {
+    user: string;
+  }
+}
 
 /* Development Url Info */
 const localhost = '127.0.0.1';
@@ -17,6 +22,7 @@ const port = process.env.NODE_ENV === 'development' ? dev_port : SERVER_PORT;
 /* Create Server */
 const server = express();
 server.disable('x-powered-by');
+server.set('trust proxy', 1);
 
 /* Router */
 server.use('/', router);

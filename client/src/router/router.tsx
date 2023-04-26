@@ -6,6 +6,7 @@ import Login from '../pages/login/login';
 import Profile from '../pages/profile/profile';
 import Layout from '../layout/layout';
 
+//TODO look into preloading/lazyloading
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Layout />}>

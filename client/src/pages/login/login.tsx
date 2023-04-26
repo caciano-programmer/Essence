@@ -18,7 +18,7 @@ const StyledForm = styled.form({
   flexDirection: 'column',
   padding: '2%',
 });
-
+//TODO consider adding loading spinner
 export default function Login() {
   const [user, setUser] = useState(emptyLoginUser);
   const [confirm, setConfirm] = useState('');

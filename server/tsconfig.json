@@ -12,5 +12,6 @@
     "alwaysStrict": true,
     "skipLibCheck": true,
     "moduleResolution":"NodeNext",
+    "typeRoots": ["./node_modules/@types", "./typings"]
   }
 }
