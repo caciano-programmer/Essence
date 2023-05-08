@@ -44,7 +44,7 @@ router.post('/api/login', (request, response, next) => {
   console.log(request.session.id, request.session.cookie);
   login(email, password)
     .then(({ id, name, email }) => {
-      request.session.USER = { name, email };
+      request.session.user = { name, email };
       response.status(201).send({ id, name, email }).end();
     })
     .catch(error => next(error));

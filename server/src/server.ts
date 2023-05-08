@@ -1,11 +1,6 @@
 import express from 'express';
 import router from './api/api.js';
 import { errorHandler } from './error/errorHandler.js';
-declare module 'express-session' {
-  interface Session {
-    user: string;
-  }
-}
 
 /* Development Url Info */
 const localhost = '127.0.0.1';
